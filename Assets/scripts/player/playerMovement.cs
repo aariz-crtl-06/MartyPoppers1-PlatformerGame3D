@@ -5,7 +5,9 @@ using UnityEngine;
 public class playerMovement : MonoBehaviour
 {
     Rigidbody rb;
-    public float jump = 3;
+    public float jump = 30;
+
+    public bool isGrounded = true;
     float speed = 8;
     void Start()
     {
@@ -16,12 +18,31 @@ public class playerMovement : MonoBehaviour
     {
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         transform.position += move * speed * Time.deltaTime;
+        move = transform.position;
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            //isGrounded = false;
             Debug.Log("pressed");
-            rb.AddForce(new Vector3 (rb.velocity.x, jump, speed));
+            rb.AddForce(Vector3.up * jump, ForceMode.Impulse);
+            //rb.velocity = Vector3.up * jump;
+
         }
+
+        if (isGrounded == false)
+        {
+
+        }
+
+        void onCollisionEnter(Collision other)
+        {
+            if (other.gameObject.CompareTag("Ground"))
+            {
+                isGrounded = true;
+                Debug.Log("grounded");
+            }
+
+        }   
 
     }
 }
