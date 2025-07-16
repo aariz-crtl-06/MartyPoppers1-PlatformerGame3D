@@ -6,16 +6,13 @@ public class playerMovement : MonoBehaviour
 {
     Rigidbody rb;
     public float jump = 10;
-    public float gravityScale = 0.8f;
-    public float fallingGravityScale = 30f;
-    float currentGravityScale;
-
+    public float gravityScale = 2;
+    
     public bool isGrounded;
     float speed = 8;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        currentGravityScale = gravityScale;
     }
 
     private void FixedUpdate() => rb.AddForce(Physics.gravity * (gravityScale - 1) * rb.mass);
@@ -33,13 +30,14 @@ public class playerMovement : MonoBehaviour
 
         }
 
-        if (rb.velocity.y >= 0)
+        if (rb.velocity.y < 0 && Input.GetKey(KeyCode.Space))
         {
-            currentGravityScale = gravityScale;
+            Debug.Log("umbrella equipped");
+            gravityScale = 0.1f;
         }
         else
         {
-            currentGravityScale = fallingGravityScale;
+            gravityScale = 2;
 
         }
 

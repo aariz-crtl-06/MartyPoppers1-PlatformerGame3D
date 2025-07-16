@@ -699,9 +699,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83f31e14f8c685e49a2992b65249e002, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jump: 8
-  gravityScale: 8
-  fallingGravityScale: 30
+  jump: 10
+  gravityScale: 2
   isGrounded: 0
 --- !u!1 &1092907458
 GameObject:
