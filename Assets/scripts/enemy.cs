@@ -10,7 +10,7 @@ public class enemy : MonoBehaviour
     public LayerMask whatIsGround, whatIsPlayer;
 
     //you gotta add enemy health for player to atack
-    float enemyHealth;
+    float enemyHealth = 30;
 
     //Patroling
     public Vector3 walkPoint;
@@ -24,6 +24,9 @@ public class enemy : MonoBehaviour
     //States
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
+
+    //check if player is in range to hit enemy
+    public bool playerInEnemyRange=false;
 
     private void Awake()
     {
@@ -46,6 +49,13 @@ public class enemy : MonoBehaviour
         if (!playerInSightRange && !playerInAttackRange) Patroling();
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
         if (playerInAttackRange && playerInSightRange) AttackPlayer();
+
+        //confirms the enemy attack if button is hit
+        if(Input.GetButtonDown("Attack") && playerInEnemyRange)
+        {
+            EnemyTakeDamage();
+            Debug.Log("Enemy attacked by player");
+        }
     }
 
 
@@ -105,18 +115,16 @@ public class enemy : MonoBehaviour
         alreadyAttacked = false;
     }
 
-    public void EnemyTakeDamage(int damage)
+    public void EnemyTakeDamage()
     {
-        // Implement damage logic here
-        // For example, reduce health and check for death
-        Debug.Log("Enemy took damage: " + damage);
+     
+        Debug.Log("Enemy took damage");
 
-       enemyHealth -= damage;
+        enemyHealth -= 10;
 
-        if (enemyHealth <= 0) Invoke(nameof(EnemyDeath), 0.1f); // Delay to allow for any animations or effects before destroying the enemy
-        else
+        if (enemyHealth <= 0)
         {
-            EnemyDeath();
+            Invoke(nameof(EnemyDeath), 0.1f); // Delay to allow for any animations or effects before destroying the enemy
         }
     }
 
@@ -124,6 +132,24 @@ public class enemy : MonoBehaviour
     {
       
         Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter(Collider player)
+    {
+        if (player.CompareTag("Player"))
+        {
+            playerInEnemyRange = true;
+            Debug.Log("Player is in trigger area");
+        }
+    }
+
+    private void OnTriggerExit(Collider player)
+    {
+        if (player.CompareTag("Player"))
+        {
+            playerInEnemyRange = false;
+            Debug.Log("Player left trigger area");
+        }
     }
 
 }
