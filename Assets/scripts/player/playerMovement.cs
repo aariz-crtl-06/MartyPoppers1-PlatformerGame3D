@@ -26,14 +26,14 @@ public class playerMovement : MonoBehaviour
         move = transform.position;
 
         //When jumped
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
             rb.AddForce(Vector3.up * jump, ForceMode.Impulse);
 
         }
 
         //Got on to boost pad
-        if (Input.GetKeyDown(KeyCode.Space) && isOnBoost)
+        if (Input.GetButtonDown("Jump") && isOnBoost)
         {
             speed = 18;
             jump = 20;
@@ -41,7 +41,7 @@ public class playerMovement : MonoBehaviour
 
         }
 
-        if (rb.velocity.y < 0 && Input.GetKey(KeyCode.Space))
+        if (rb.velocity.y < 0 && Input.GetButton("Jump"))
         {
             gravityScale = 0.1f;
         }
@@ -51,7 +51,7 @@ public class playerMovement : MonoBehaviour
 
         }
 
-        if(Input.GetKey(KeyCode.LeftShift) && isGrounded)
+        if(Input.GetButton("Sprint") && isGrounded)
         {
             speed = 16;
             jump = 15;
