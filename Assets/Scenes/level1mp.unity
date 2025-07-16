@@ -135,8 +135,8 @@ GameObject:
   - component: {fileID: 315490006}
   - component: {fileID: 315490005}
   m_Layer: 0
-  m_Name: Cube (1)
-  m_TagString: Untagged
+  m_Name: lowerPlat
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -334,7 +334,7 @@ GameObject:
   - component: {fileID: 928751462}
   - component: {fileID: 928751461}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: upperPlat
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -599,7 +599,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!65 &1049696884
 BoxCollider:
@@ -699,8 +699,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83f31e14f8c685e49a2992b65249e002, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jump: 3
-  isGrounded: 1
+  jump: 8
+  gravityScale: 8
+  fallingGravityScale: 30
+  isGrounded: 0
 --- !u!1 &1092907458
 GameObject:
   m_ObjectHideFlags: 3
