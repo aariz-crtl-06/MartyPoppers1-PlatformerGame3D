@@ -10,6 +10,7 @@ public class playerMovement : MonoBehaviour
     public float gravityScale = 2;
     
     public bool isGrounded;
+    public bool isOnBoost;
     public float speed = 8;
     void Start()
     {
@@ -24,16 +25,24 @@ public class playerMovement : MonoBehaviour
         transform.position += move * speed * Time.deltaTime;
         move = transform.position;
 
+        //When jumped
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            Debug.Log("pressed");
+            rb.AddForce(Vector3.up * jump, ForceMode.Impulse);
+
+        }
+
+        //Got on to boost pad
+        if (Input.GetKeyDown(KeyCode.Space) && isOnBoost)
+        {
+            speed = 18;
+            jump = 20;
             rb.AddForce(Vector3.up * jump, ForceMode.Impulse);
 
         }
 
         if (rb.velocity.y < 0 && Input.GetKey(KeyCode.Space))
         {
-            Debug.Log("umbrella equipped");
             gravityScale = 0.1f;
         }
         else
@@ -64,11 +73,18 @@ public class playerMovement : MonoBehaviour
         {
             isGrounded = true;
         }
+
+        if(other.gameObject.CompareTag("Boost"))
+        {
+            isOnBoost = true;
+        }
     }
 
-    private void OnCollisionExit(Collision collision)
+    private void OnCollisionExit(Collision other)
     {
         isGrounded = false;
+
+        isOnBoost = false;
 
     }
 
