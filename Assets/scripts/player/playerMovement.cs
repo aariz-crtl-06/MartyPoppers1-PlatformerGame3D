@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class playerMovement : MonoBehaviour
@@ -9,7 +10,7 @@ public class playerMovement : MonoBehaviour
     public float gravityScale = 2;
     
     public bool isGrounded;
-    float speed = 8;
+    public float speed = 8;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -41,7 +42,21 @@ public class playerMovement : MonoBehaviour
 
         }
 
+        if(Input.GetKey(KeyCode.LeftShift) && isGrounded)
+        {
+            speed = 16;
+            jump = 15;
+        }   
+
+        else
+        {
+            speed = 8;
+            jump = 10;
+        }
+
     }
+
+    
 
     private void OnCollisionEnter(Collision other)
     {
