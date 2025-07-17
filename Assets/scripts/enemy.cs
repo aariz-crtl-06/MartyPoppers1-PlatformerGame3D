@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public class enemy : MonoBehaviour
 {
+    playerHealth playerHealth;
+
     public NavMeshAgent agent;
     public Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
@@ -18,7 +20,7 @@ public class enemy : MonoBehaviour
     public float walkPointRange;
 
     //Attacking
-    public float timeBetweenAttacks;
+    public float timeBetweenAttacks =5f;
     bool alreadyAttacked;
 
     //States
@@ -37,6 +39,7 @@ public class enemy : MonoBehaviour
 
     void Start()
     {
+        playerHealth = FindObjectOfType<playerHealth>();
 
     }
 
@@ -100,13 +103,15 @@ public class enemy : MonoBehaviour
     {
         agent.SetDestination(transform.position);
         transform.LookAt(player);
+
         if (!alreadyAttacked)
         {
-            //Attack code here brroooo
 
             alreadyAttacked = true;
-            //Invoke reset attack after timeBetweenAttacks seconds
+
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
+
+            playerHealth.health -= 25;
         }
     }
 
