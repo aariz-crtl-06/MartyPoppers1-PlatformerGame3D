@@ -5,6 +5,9 @@ using UnityEngine.AI;
 
 public class enemy : MonoBehaviour
 {
+    public bool attacking;
+
+    
     playerHealth playerHealth;
 
     public NavMeshAgent agent;
@@ -40,30 +43,44 @@ public class enemy : MonoBehaviour
     void Start()
     {
         playerHealth = FindObjectOfType<playerHealth>();
-
     }
 
     void Update()
     {
+
+        Debug.Log("Attacking: " + attacking);
         //Check for sight and attack range
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-        if (!playerInSightRange && !playerInAttackRange) Patroling();
-        if (playerInSightRange && !playerInAttackRange) ChasePlayer();
-        if (playerInAttackRange && playerInSightRange) AttackPlayer();
+        if (!playerInSightRange && !playerInAttackRange) 
+        {
+            Patroling();
+        }
+        if (playerInSightRange && !playerInAttackRange) 
+        {
+            ChasePlayer();
+        }
+        if (playerInAttackRange && playerInSightRange)
+        {
+            AttackPlayer();
+            
+        }
 
         //confirms the enemy attack if button is hit
-        if(Input.GetButtonDown("Attack") && playerInEnemyRange)
+        if (Input.GetButtonDown("Attack") && playerInEnemyRange)
         {
             EnemyTakeDamage();
             Debug.Log("Enemy attacked by player");
         }
-    }
 
+       
+    }
 
     private void Patroling()
     {
+       
+
         if (!walkPointSet) SearchWalkPoint();
 
         if (walkPointSet)
@@ -96,21 +113,23 @@ public class enemy : MonoBehaviour
 
     private void ChasePlayer()
     {
+        
+        
         agent.SetDestination(player.position);
     }
 
     private void AttackPlayer()
     {
+        
         agent.SetDestination(transform.position);
         transform.LookAt(player);
 
         if (!alreadyAttacked)
         {
-
+            
             alreadyAttacked = true;
 
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
-
             playerHealth.health -= 25;
         }
     }
@@ -125,7 +144,7 @@ public class enemy : MonoBehaviour
      
         Debug.Log("Enemy took damage");
 
-        enemyHealth -= 10;
+        enemyHealth -= 20;
 
         if (enemyHealth <= 0)
         {
@@ -143,6 +162,7 @@ public class enemy : MonoBehaviour
     {
         if (player.CompareTag("Player"))
         {
+            attacking = true;
             playerInEnemyRange = true;
             Debug.Log("Player is in trigger area");
         }
@@ -152,6 +172,7 @@ public class enemy : MonoBehaviour
     {
         if (player.CompareTag("Player"))
         {
+            attacking = false;
             playerInEnemyRange = false;
             Debug.Log("Player left trigger area");
         }
