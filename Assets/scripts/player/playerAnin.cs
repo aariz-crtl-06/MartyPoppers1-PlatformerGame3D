@@ -34,11 +34,11 @@ public class playerAnin : MonoBehaviour
             bool isWalking = (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0 && idle!=true);
             animator.SetBool("theWalk", isWalking);
 
-            bool isAttacking = Input.GetButtonDown("Attack");
+            bool isAttacking = Input.GetButtonDown("Attack") && aPlayerMovement.isGrounded;
             animator.SetBool("attack", isAttacking);
 
       
-            if (Input.GetButtonDown("Attack"))
+            if (Input.GetButtonDown("Attack") && aPlayerMovement.isGrounded)
             {
                 attackTimer = attackDuration;
                 animator.SetBool("attack", true);
@@ -55,7 +55,7 @@ public class playerAnin : MonoBehaviour
                 attackBrella.SetActive(false);
             }
 
-            if (aPlayerMovement.falling)
+            if (aPlayerMovement.falling && aPlayerMovement.isGrounded!=true)
             {
                 brella.SetActive(true);
                 isWalking = false;

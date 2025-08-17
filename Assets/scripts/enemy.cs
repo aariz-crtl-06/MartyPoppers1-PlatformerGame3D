@@ -7,7 +7,9 @@ public class enemy : MonoBehaviour
 {
     public bool attacking;
 
-    
+    public float playerAttackCooldown = 0.8f;
+    private bool playerCanAttack = true;
+
     playerHealth playerHealth;
 
     public NavMeshAgent agent;
@@ -68,13 +70,21 @@ public class enemy : MonoBehaviour
         }
 
         //confirms the enemy attack if button is hit
-        if (Input.GetButtonDown("Attack") && playerInEnemyRange)
+        if (Input.GetButtonDown("Attack") && playerInEnemyRange && playerCanAttack)
         {
             EnemyTakeDamage();
             Debug.Log("Enemy attacked by player");
+
+            playerCanAttack = false; // disable attack
+            Invoke(nameof(ResetPlayerAttack), playerAttackCooldown);
         }
 
        
+    }
+
+    private void ResetPlayerAttack()
+    {
+        playerCanAttack = true;
     }
 
     private void Patroling()

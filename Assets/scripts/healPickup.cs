@@ -5,10 +5,11 @@ using UnityEngine;
 public class healPickup : MonoBehaviour
 {
     playerHealth playerhealth;
+    playerMovement pm;
     void Start()
     {
         playerhealth = FindObjectOfType<playerHealth>();
-
+        pm = FindObjectOfType<playerMovement>();
     }
 
     // Update is called once per frame
@@ -21,6 +22,7 @@ public class healPickup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            pm.isGrounded=true;
             if (playerhealth.health < 100)
             {
                 playerhealth.health += 25;

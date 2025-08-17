@@ -91,6 +91,11 @@ public class playerMovement : MonoBehaviour
         {
             isOnBoost = true;
         }
+
+        if(other.gameObject.CompareTag("Enemy"))
+        {
+            isGrounded = true;
+        }
     }
 
     private void OnCollisionExit(Collision other)
