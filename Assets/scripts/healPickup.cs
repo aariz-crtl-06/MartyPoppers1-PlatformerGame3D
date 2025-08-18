@@ -23,14 +23,14 @@ public class healPickup : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             pm.isGrounded=true;
-            if (playerhealth.health < 100)
+            if (playerhealth.health < 4)
             {
-                playerhealth.health += 25;
+                playerhealth.health += 1;
                 Destroy(gameObject);
 
-                if (playerhealth.health > 100)
+                if (playerhealth.health > 4)
                 {
-                    playerhealth.health = 100;
+                    playerhealth.health = 4;
                 }
             }
         

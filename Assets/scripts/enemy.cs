@@ -17,7 +17,7 @@ public class enemy : MonoBehaviour
     public LayerMask whatIsGround, whatIsPlayer;
 
     //you gotta add enemy health for player to atack
-    float enemyHealth = 30;
+    public float enemyHealth = 1;
 
     //Patroling
     public Vector3 walkPoint;
@@ -140,7 +140,7 @@ public class enemy : MonoBehaviour
             alreadyAttacked = true;
 
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
-            playerHealth.health -= 25;
+            playerHealth.health -= 1;
         }
     }
 
@@ -154,7 +154,7 @@ public class enemy : MonoBehaviour
      
         Debug.Log("Enemy took damage");
 
-        enemyHealth -= 20;
+        enemyHealth -= 1;
 
         if (enemyHealth <= 0)
         {

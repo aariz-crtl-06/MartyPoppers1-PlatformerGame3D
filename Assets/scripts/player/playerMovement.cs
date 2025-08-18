@@ -14,10 +14,13 @@ public class playerMovement : MonoBehaviour
     public bool isGrounded;
     public bool isOnBoost;
     public float speed = 8;
+
+    playerHealth health;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        
+        health = GetComponent<playerHealth>();
+
     }
 
     private void FixedUpdate() => rb.AddForce(Physics.gravity * (gravityScale - 1) * rb.mass);
@@ -73,6 +76,11 @@ public class playerMovement : MonoBehaviour
         {
             speed = 8;
             jump = 10;
+        }
+
+        if(transform.position.y <0)
+        {
+            health.health = 0;
         }
 
     }
