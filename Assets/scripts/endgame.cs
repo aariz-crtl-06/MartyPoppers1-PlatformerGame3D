@@ -21,7 +21,6 @@ public class endgame : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player has reached the end of the level.");
             SceneManager.LoadScene("endScene");
         }
     }

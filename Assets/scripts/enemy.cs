@@ -50,7 +50,6 @@ public class enemy : MonoBehaviour
     void Update()
     {
 
-        Debug.Log("Attacking: " + attacking);
         //Check for sight and attack range
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
@@ -73,7 +72,6 @@ public class enemy : MonoBehaviour
         if (Input.GetButtonDown("Attack") && playerInEnemyRange && playerCanAttack)
         {
             EnemyTakeDamage();
-            Debug.Log("Enemy attacked by player");
 
             playerCanAttack = false; // disable attack
             Invoke(nameof(ResetPlayerAttack), playerAttackCooldown);
@@ -152,7 +150,6 @@ public class enemy : MonoBehaviour
     public void EnemyTakeDamage()
     {
      
-        Debug.Log("Enemy took damage");
 
         enemyHealth -= 1;
 
@@ -174,7 +171,6 @@ public class enemy : MonoBehaviour
         {
             attacking = true;
             playerInEnemyRange = true;
-            Debug.Log("Player is in trigger area");
         }
     }
 
@@ -184,7 +180,6 @@ public class enemy : MonoBehaviour
         {
             attacking = false;
             playerInEnemyRange = false;
-            Debug.Log("Player left trigger area");
         }
     }
 

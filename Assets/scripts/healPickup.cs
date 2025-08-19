@@ -15,7 +15,6 @@ public class healPickup : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Player Health: " + playerhealth.health);
     }
 
     private void OnTriggerEnter(Collider other)
