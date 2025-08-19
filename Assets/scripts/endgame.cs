@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class endgame : MonoBehaviour
 {
@@ -16,12 +17,12 @@ public class endgame : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.name == "Player")
+        if (other.CompareTag("Player"))
         {
-            Debug.Log("You win!");
-            // Implement endgame logic here, such as displaying a victory screen or stopping the game.
+            Debug.Log("Player has reached the end of the level.");
+            SceneManager.LoadScene("endScene");
         }
     }
 
