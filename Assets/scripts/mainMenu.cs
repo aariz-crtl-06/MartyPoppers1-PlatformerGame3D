@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class mainMenu : MonoBehaviour
 {
+    public GameObject creds;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,5 +20,15 @@ public class mainMenu : MonoBehaviour
     public void StartGame()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("intro");
+    }
+
+    public void Credits()
+    {
+       creds.SetActive(true);
+    }
+
+    public void Back()
+    {
+        creds.SetActive(false);
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class playerHealth : MonoBehaviour
 {
+    public GameObject gameOverScreen;
     public float health;
     void Start()
     {
@@ -21,8 +22,7 @@ public class playerHealth : MonoBehaviour
 
     public void Die()
     {
-        
-        SceneManager.LoadScene("level1mp");
+        gameOverScreen.SetActive(true);
     }
    
 }
